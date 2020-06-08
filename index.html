@@ -7,6 +7,13 @@
   </head>
   <body>
     <div id="app">
+      <label v-for="label in options">
+        <input type="radio"
+          v-model="current"
+          v-bind:value="label.value">{{ label.label }}
+      </label>
+
+      ({{ computedTodos.length }} 件を表示)
       <table>
         <!-- テーブルヘッダー -->
         <thead>
@@ -18,12 +25,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in todos" v-bind:key="item.id"> <!-- ディレクティブの値はv-for="各要素の一時的な名前 in 繰り返したい配列やオブジェクト" -->
+          <tr v-for="item in computedTodos" v-bind:key="item.id"> <!-- ディレクティブの値はv-for="各要素の一時的な名前 in 繰り返したい配列やオブジェクト" -->
             <th>{{ item.id }}</th>
             <td>{{ item.comment }}</td>
             <td class="state">
               <!-- 状態変更ボタンのモック -->
-              <button v-on:click="doChangeState(item)">{{ item.state }}</button>
+              <button v-on:click="doChangeState(item)">{{ labels[item.state] }}</button>
             </td>
             <td class="button">
               <!-- 削除ボタンのモック -->

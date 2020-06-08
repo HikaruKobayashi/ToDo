@@ -68,5 +68,17 @@ const app = new Vue ({
   created() {
     // インスンタンス作成時に自動的にfetch()する
     this.todos = todoStorage.fetch()
+  },
+  computed: {
+    labels() {
+      return this.options.reduce(function(a, b) {
+        return Object.assign(a, { [b.value]: b.label })
+      }, {})
+    },
+    computedTodos: function() {
+      return this.todos.filter(function(el) {
+        return this.current < 0 ? true : this.current === el.state
+      }, this)
+    }
   }
 })
